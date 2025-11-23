@@ -1,6 +1,4 @@
 # Forecasting Apple Stock Prices
-##### Author: Laura Wozniak (580635) and Sabine Riffel (582950)
-
 
 ## Problem Definition
 **Target**
