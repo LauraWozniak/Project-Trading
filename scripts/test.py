@@ -26,7 +26,7 @@ print('Downloading news data...')
 news_client = NewsClient(api_key=API_KEY, secret_key=SECRET_KEY)
 
 request_params = NewsRequest(
-    symbols=SYMBOLS,
+    symbols=SYMBOLS[0],
     start=START_DATE,
     end=END_DATE,
     include_content=True
