@@ -8,7 +8,7 @@ from datetime import datetime
 import pytz
 import yaml
 
-
+# Download stock bar data from Alpaca API and save as Parquet file
 # Load API credential from YAML configuration file
 print('Loading API keys...')
 keys = yaml.safe_load(open("../data/conf/keys.yaml"))
@@ -39,9 +39,9 @@ cal_map = {}
 eastern = pytz.timezone("US/Eastern")
 
 print('Processing calendar entries...')
+# Populate the calendar map with localized open and close times
 for c in calendar:
-    # c.open and c.close are datetime.datetime (naive, in ET)
-    open_dt = eastern.localize(c.open)  # set tzinfo to US/Eastern
+    open_dt = eastern.localize(c.open)
     close_dt = eastern.localize(c.close)
     cal_map[c.date] = (open_dt, close_dt)
 
@@ -58,9 +58,9 @@ def check_open(ts):
 # Create a request object for historical bar data
 print(f'Creating data request for {SYMBOLS} from {START_DATE} to {END_DATE}...')
 request = StockBarsRequest(
-    symbol_or_symbols=SYMBOLS,
+    symbol_or_symbols=SYMBOLS[0],
     timeframe=TimeFrame.Minute,
-    adjustment=Adjustment.ALL, # adjusts for splits and dividends
+    adjustment=Adjustment.ALL,
     start=START_DATE,
     end=END_DATE
 )
@@ -87,3 +87,4 @@ df.drop(columns=['is_open'], inplace=True)
 # Save the DataFrame as a Parquet file for efficient storage
 print(f'Saving data to {PATH_BARS}/{SYMBOLS}.parquet...')
 df.to_parquet(f'{PATH_BARS}/{SYMBOLS[0]}.parquet', index=False)
+print('Data acquisition complete.')
