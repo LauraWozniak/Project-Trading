@@ -37,20 +37,93 @@ The retrieved data is stored as a Parquet file named `AAPL.parquet` in the `../d
 
 ![data.png](images/01_raw_data.png)
 
-**Columns**
+---
+
+## 2 - Data Understanding
+
+**Description**
+
+This step involves exploring and understanding the AAPL stock data and news data obtained from the previous step.
+
+**Script**
+
+[02_data_understanding.py](scripts/02_data_understanding.py)
+[02_data_understanding_news.py](scripts/02_data_understanding.py)
+
+**AAPL Stock Data**
+
+**- Columns**
 - `timestamp`: Date and time of the stock price record
 - `open`: Opening price of the stock at the given timestamp
 - `high`: Highest price of the stock at the given timestamp
 - `low`: Lowest price of the stock at the given timestamp
 - `close`: Closing price of the stock at the given timestamp
 - `volume`: Number of shares traded during the given timestamp
-- `trade_count`: Number of trades executed during the given timestamp'
+- `trade_count`: Number of trades executed during the given timestamp
 - `vwap`: Volume Weighted Average Price during the given timestamp
+
+**- Descriptive Statistics**
+
+![02_descriptive_stats_aapl.png](images/02_descriptive_stats_aapl.png)
+*The table provides descriptive statistics for the AAPL stock data, including count, mean, standard deviation, minimum, 25th percentile, median (50th percentile), 75th percentile, and maximum values for each column in the `AAPL.parquet`.
+The stock showed significant volatility, trading between 122–259 USD. Trading activity was highly uneven, likely driven by major news events or market announcements.*
+
+**AAPL News Data**
+
+**- Columns**
+- `timestamp`: Date and time of the news article
+- `headline`: Headline of the news article
+- `content`: Full content of the news article
+- `summary`: Summary of the news article
+- `url`: URL of the news article
+
+**- Descriptive Statistics**
+
+![02_descriptive_stats_news.png](images/02_descriptive_stats_news.png)
+*The dataset `APPL_news.csv` has about 14000 news entries. Most headlines are unique, but some are repeated many times, showing duplicated or widely shared stories. Some content and summaries are missing, so the data is uneven. Overall, it’s a mix of unique articles and repeated reports.*
+
+**Senator Financial Disclosures**
+
+**- Columns**
+- `tx_date` : Date of Trade
+- `file_date`: Date of when the trade was filed
+- `last_name`: Last Name of Senator
+- `first_name`: First Name of Senator
+- `order_type`: Sale or Purchase of stock
+- `ticker`: ticker of the stock traded
+- `asset_name`: name of the company of the stock traded (AAPL stock = Apple company)
+- `tx_amount`: amount of stock traded
+- `link`: Link to the entry
+
+**Plots**
+
+![02_stock_performance_plot.png](images/02_stock_performance_plot.png)
+*The plot shows the stock price performance of AAPL over the specified time period. The x-axis represents the date, while the y-axis represents the stock price in USD.*
+
+![02_news_count_plot.png](images/02_news_count_plot.png)
+*The plot shows the count of news articles related to AAPL over the specified time period. The x-axis represents the date, while the y-axis represents the number of news articles.*
+
+
+![02_stock_vs_news_plot.png](images/02_stock_vs_news_plot.png)
+*The plot shows the relationship between AAPL stock prices and the count of news articles over the specified time period. The x-axis represents the date, while the left y-axis represents the stock price in USD and the right y-axis represents the number of news articles.*
+
+![02_vwap_vs_close.png](images/02_vwap_vs_close.png)
+*The plot shows the relationship between AAPL’s Volume Weighted Average Price (VWAP) and its closing prices for a random date. The x-axis shows the date, while the y-axis represents the price in USD. When the closing price is above the VWAP, it typically signals bullish market sentiment; conversely, when it falls below, it may indicate bearish tendencies.*
 
 ---
 
-## 2 - Data Understanding
 ## 3 - Pre-Split Preparation
+
+Stock Data
+- Neue Features erstellen (EMA, Slope, Acceleration, Normalisierung)
+- Daten bereinigen
+
+News
+- Artikel kategorisieren (RELEVANZ:positiv, negativ, neutral)
+- Daten bereinigen
+
+
+---
 ## 4 - Split Data
 ## 5 - Post-Split Preparation
 ## 6 - Feature Selection
